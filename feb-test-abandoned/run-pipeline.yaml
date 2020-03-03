@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata: 
+  name: run-writer
+spec:
+  pipelineRef: 
+    name: write-stuff-pipeline
+  workspaces: 
+    - name: pipeline-scratch
+      emptyDir: {}

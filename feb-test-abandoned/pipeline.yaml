@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: write-stuff-pipeline
+spec:
+  workspaces: 
+    - name: pipeline-scratch
+  tasks:
+    - name: write-something
+      taskRef: 
+        name: create-file
+      workspaces: 
+        - name: scratch
+          workspace: pipeline-scratch
+    - name: read-something
+      runAfter: 
+        - write-something
+      taskRef: 
+        name: read-file
+      workspaces: 
+        - name: scratch
+          workspace: pipeline-scratch

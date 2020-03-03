@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: read-file
+spec:
+  workspaces: 
+  - name: scratch
+  steps:
+  - name: read-stuff
+    image: ubuntu
+    command: ["bash", "-ce"]
+    args:
+      - |
+        echo "Hello I am the reader"
+        ls /workspace/scratch
+        cat /workspace/scratch/msg.txt

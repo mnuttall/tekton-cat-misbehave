@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: create-file
+spec:
+  workspaces: 
+  - name: scratch
+  steps:
+  - name: write-new-stuff
+    image: ubuntu
+    command: ["bash", "-ce"]
+    args:
+      - |
+        echo "Hello Mark" > /workspace/scratch/msg.txt
+        cat /workspace/scratch/msg.txt
+        cp /workspace/scratch/msg.txt /workspace/output/scratch

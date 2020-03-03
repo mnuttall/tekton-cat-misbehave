@@ -1,0 +1,30 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: task-1
+spec:
+  inputs:
+    resources:
+      - name: gitrepo
+        type: git
+  outputs: 
+    resources: 
+      - name: gitrepo
+        type: git
+  steps:
+    - name: hello
+      image: ubuntu
+      command: ["bash", "-ce"]
+      args:
+      - |
+        echo "Hello from task-1"
+        cat /workspace/gitrepo/readme.md
+        echo "Hello new file" >> /workspace/gitrepo/newfile.txt
+        cat /workspace/gitrepo/newfile.txt
+
+        echo "Input source path=$(inputs.resources.gitrepo.path)" 
+        echo "Output source path=$(outputs.resources.gitrepo.path). cp -r. "
+      
+        # cp -r $(inputs.resources.gitrepo.path)/* $(outputs.resources.gitrepo.path)
+
+        ls $(outputs.resources.gitrepo.path)

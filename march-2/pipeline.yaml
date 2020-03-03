@@ -1,0 +1,28 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: basic-pipeline
+spec:
+  resources: 
+    - name: repo-in
+      type: git
+  tasks:
+    - name: git-clone
+      taskRef: 
+        name: task-1
+      resources: 
+        inputs:
+          - name: gitrepo
+            resource: repo-in
+        outputs: 
+          - name: gitrepo
+            resource: repo-in
+    - name: second-task
+      runAfter: 
+        - git-clone
+      taskRef: 
+        name: task-2
+      resources: 
+        inputs: 
+          - name: gitrepo
+            resource: repo-in

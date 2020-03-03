@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: simple-ghe
+spec:
+  type: git
+  params:
+  - name: revision
+    value: master
+# Use a GitHub Enterprise URL here since that has authentication enabled. 
+# We could also use a private repository on github.com for the same effect. 
+# TODO: replace with a private repo in github.com in case we can do a live demo. 
+  - name: url
+    value: https://github.com/mnuttall/simple.git

@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: task-2
+spec:
+  inputs:
+    resources:
+      - name: gitrepo
+        type: git
+  steps:
+    - name: hello
+      image: ubuntu
+      command: ["bash", "-ce"]
+      args:
+      - |
+        echo "Hello from task-2"
+        cat /workspace/gitrepo/readme.md
