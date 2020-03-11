@@ -35,15 +35,15 @@ spec:
     securityContext:
       privileged: true
 
-  #- name: push
-  #  image: $(inputs.params.BUILDER_IMAGE)
-  #  workingDir: /workspace/source
-  #  command: ['buildah', 'push', '--tls-verify=$(inputs.params.TLSVERIFY)', '$(outputs.resources.image.url)', 'docker://$(outputs.resources.image.url)']
-  #  volumeMounts:
-  #  - name: varlibcontainers
-  #    mountPath: /var/lib/containers
-  #  securityContext:
-  #    privileged: true
+  - name: push
+    image: $(inputs.params.BUILDER_IMAGE)
+    workingDir: /workspace/source
+    command: ['buildah', 'push', '--tls-verify=$(inputs.params.TLSVERIFY)', '$(outputs.resources.image.url)', 'docker://$(outputs.resources.image.url)']
+    volumeMounts:
+    - name: varlibcontainers
+      mountPath: /var/lib/containers
+    securityContext:
+      privileged: true
 
   volumes:
   - name: varlibcontainers
